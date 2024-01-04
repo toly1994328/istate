@@ -1,20 +1,20 @@
 
 
 void main() {
-  // SmsSystem smsSystem = SmsSystem();
-  // DiskManager manager = DiskManager(1024,callback: (NotifyStatus status,String msg){
-  //   if(status==NotifyStatus.log){
-  //     print(msg);
-  //   }else{
-  //     smsSystem.sendSms('18715079377', msg);
-  //   }
-  // });
-  // manager.use(100);
-  // manager.use(200);
-  // manager.use(300);
-  // manager.use(250);
-  // manager.use(50);
-  // manager.use(150);
+  SmsSystem smsSystem = SmsSystem();
+  DiskManager manager = DiskManager(1024,callback: (NotifyStatus status,String msg){
+    if(status==NotifyStatus.log){
+      print(msg);
+    }else{
+      smsSystem.sendSms('18715079377', msg);
+    }
+  });
+  manager.use(100);
+  manager.use(200);
+  manager.use(300);
+  manager.use(250);
+  manager.use(50);
+  manager.use(150);
 }
 
 class SmsSystem{

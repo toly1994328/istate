@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
-final AppThemeManager kAppThemeManager = AppThemeManager();
 
 Map<ThemeMode, String> kThemeModeMap = const {
   ThemeMode.system: "跟随系统",
@@ -11,17 +7,6 @@ Map<ThemeMode, String> kThemeModeMap = const {
 };
 
 class AppThemeManager extends ChangeNotifier {
-
-  // 单例模式
-  // static AppThemeManager? _instance;
-  // AppThemeManager._();
-  //
-  // static AppThemeManager get instance{
-  //   _instance ??= AppThemeManager._();
-  //   return _instance!;
-  // }
-
-
 
   ThemeMode _mode = ThemeMode.system;
 
@@ -41,6 +26,4 @@ class AppThemeManager extends ChangeNotifier {
       mode = ThemeMode.light;
     }
   }
-
-
 }

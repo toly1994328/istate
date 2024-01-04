@@ -4,7 +4,13 @@ void main() {
   runApp(const MyApp());
 }
 
-final ValueNotifier<bool> kIsDark = ValueNotifier(false);
+const PageTransitionsTheme kPageTransitionsTheme =  PageTransitionsTheme(
+  builders: <TargetPlatform, PageTransitionsBuilder>{
+    TargetPlatform.android: ZoomPageTransitionsBuilder(
+      allowEnterRouteSnapshotting: false,
+    ),
+  },
+);
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -24,15 +30,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'istate',
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        pageTransitionsTheme: kPageTransitionsTheme,
         appBarTheme: const AppBarTheme(titleTextStyle: TextStyle(fontSize: 18, color: Colors.white)),
       ),
       theme: ThemeData(
+        pageTransitionsTheme: kPageTransitionsTheme,
         appBarTheme: const AppBarTheme(titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
