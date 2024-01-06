@@ -3,7 +3,7 @@ import '../../manager/app_counter_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../manager/app_theme_provider.dart';
-import '../settings/counter_step_dialog.dart';
+import 'counter_step_dialog.dart';
 import 'counter_tool_bar.dart';
 
 class CounterPage extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:istate/05/02/views/settings/counter_step_dialog.dart';
+import 'package:istate/05/02/views/counter/counter_step_dialog.dart';
 import '../../manager/app_counter_model.dart';
 import 'package:provider/provider.dart';
 import 'theme_model_setting_page.dart';

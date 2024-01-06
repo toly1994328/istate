@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../manager/app_counter_model.dart';
-import '../settings/counter_step_dialog.dart';
+import 'counter_step_dialog.dart';
 
 class CounterToolBar extends StatelessWidget {
   const CounterToolBar({super.key});
