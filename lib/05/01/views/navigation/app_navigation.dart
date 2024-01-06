@@ -17,6 +17,7 @@ class _AppNavigationState extends State<AppNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         currentIndex: _activeIndex,
         onTap: _onSelectItem,
         items: [

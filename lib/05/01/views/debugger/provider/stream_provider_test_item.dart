@@ -63,32 +63,30 @@ class StreamProviderTestItem extends StatelessWidget {
       leading: Icon(Icons.transfer_within_a_station, color: primaryColor),
       title: const Text('StreamProvider 测试', style: titleStyle),
       subtitle: const Text('红绿灯信号流不断变化', style: subStyle),
-      trailing: Builder(
-          builder: (BuildContext ctx){
-            SignalState state = ctx.watch<SignalState>();
-            return SignalLamp(
-              state: state,
-              size: 70,
-            );
-          },
-          // child: const SignalLampBox()
-      ),
+      trailing: Consumer<SignalState>(
+        builder: (ctx, SignalState state,_){
+          return SignalLamp(
+            state: state,
+            size: 70,
+          );
+        },
+      )
     );
   }
 }
 
-// class SignalLampBox extends StatelessWidget {
-//   const SignalLampBox ({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     SignalState state = context.watch<SignalState>();
-//     return SignalLamp(
-//       state: state,
-//       size: 70,
-//     );
-//   }
-// }
+class SignalLampBox extends StatelessWidget {
+  const SignalLampBox ({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    SignalState state = context.watch<SignalState>();
+    return SignalLamp(
+      state: state,
+      size: 70,
+    );
+  }
+}
 
 
 class SignalLamp extends StatelessWidget {
