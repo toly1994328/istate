@@ -68,10 +68,11 @@ class CounterResetItem extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.refresh, color: primaryColor),
       title: const Text('重置计数器', style: titleStyle),
-      subtitle: Consumer<AppCountModel>(
-        builder: (_, AppCountModel model, __) =>
-            Text('当前数值:${model.counter}', style: subStyle),
-      ),
+      subtitle: Selector<AppCountModel, int>(
+          selector: (_, model) => model.counter,
+          builder: (_, int counter, __) {
+            return Text('当前数值:$counter', style: subStyle);
+          }),
       onTap: context.read<AppCountModel>().reset,
     );
   }
@@ -83,15 +84,11 @@ class CounterStepSetItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
-    const TextStyle subStyle = TextStyle(fontSize: 12, color: Colors.grey);
     const TextStyle titleStyle = TextStyle(fontSize: 16);
     return ListTile(
       leading: Icon(Icons.settings_suggest_rounded, color: primaryColor),
       title: const Text('计数器步长', style: titleStyle),
-      subtitle: Consumer<AppCountModel>(
-        builder: (_, AppCountModel model, __) =>
-            Text('每次点击计数器 +${model.step}', style: subStyle),
-      ),
+      subtitle: const CounterStepShow(),
       onTap: () {
         showModalBottomSheet(
           context: context,
@@ -99,5 +96,17 @@ class CounterStepSetItem extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+
+class CounterStepShow extends StatelessWidget {
+  const CounterStepShow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const TextStyle subStyle = TextStyle(fontSize: 12, color: Colors.grey);
+    int step = context.select<AppCountModel,int>((model) => model.step);
+    return Text('步长 +$step', style: subStyle);
   }
 }

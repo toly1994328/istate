@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../manager/app_counter_model.dart';
-import 'package:provider/provider.dart';
-
-import '../../manager/app_theme_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../manager/app_counter_bloc.dart';
+import '../../manager/app_theme_bloc.dart';
 import 'counter_tool_bar.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
   Widget _buildSwitch(BuildContext context) {
-    bool isDark = Theme
-        .of(context)
-        .brightness == Brightness.dark;
-    AppThemeManager appThemeManager = context.read<AppThemeManager>();
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    AppThemeBloc appThemeBloc = context.read<AppThemeBloc>();
 
     return Switch(
       value: isDark,
@@ -20,20 +17,16 @@ class CounterPage extends StatelessWidget {
       trackOutlineColor: MaterialStateProperty.all(Colors.transparent),
       thumbIcon: MaterialStateProperty.all(
           isDark ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode)),
-      onChanged: appThemeManager.switchTheme,
+      onChanged: appThemeBloc.switchTheme,
     );
   }
 
   Widget _buildCounter() {
-    return Consumer<AppCountModel>(
-      builder: (ctx, AppCountModel model, __) {
-        return Text(
-          '${model.counter}',
-          style: Theme
-              .of(ctx)
-              .textTheme
-              .headlineMedium,
-        );
+    return BlocBuilder<AppCounterBloc, CounterState>(
+      buildWhen: (p, n) => p.counter != n.counter,
+      builder: (ctx, state) {
+        TextStyle? style  = Theme.of(ctx).textTheme.headlineMedium;
+        return Text('${state.counter}', style: style);
       },
     );
   }
@@ -60,14 +53,11 @@ class CounterPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context
-            .read<AppCountModel>()
-            .increment,
+        onPressed: () =>
+            context.read<AppCounterBloc>().add(const IncreaseEvent()),
         tooltip: '增加',
         child: const Icon(Icons.add),
       ),
     );
   }
 }
-
-

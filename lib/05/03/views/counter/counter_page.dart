@@ -9,9 +9,7 @@ class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
   Widget _buildSwitch(BuildContext context) {
-    bool isDark = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     AppThemeManager appThemeManager = context.read<AppThemeManager>();
 
     return Switch(
@@ -25,17 +23,14 @@ class CounterPage extends StatelessWidget {
   }
 
   Widget _buildCounter() {
-    return Consumer<AppCountModel>(
-      builder: (ctx, AppCountModel model, __) {
-        return Text(
-          '${model.counter}',
-          style: Theme
-              .of(ctx)
-              .textTheme
-              .headlineMedium,
-        );
-      },
-    );
+    return Selector<AppCountModel, int>(
+        selector: (_, model) => model.counter,
+        builder: (ctx, int counter, __) {
+          return Text(
+            '$counter',
+            style: Theme.of(ctx).textTheme.headlineMedium,
+          );
+        });
   }
 
   @override
@@ -60,14 +55,10 @@ class CounterPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context
-            .read<AppCountModel>()
-            .increment,
+        onPressed: context.read<AppCountModel>().increment,
         tooltip: '增加',
         child: const Icon(Icons.add),
       ),
     );
   }
 }
-
-

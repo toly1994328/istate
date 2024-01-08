@@ -10,6 +10,7 @@ class CounterToolBar extends StatelessWidget {
   Widget _buildCounterStep() {
     return Consumer<AppCountModel>(
       builder: (ctx, AppCountModel model, __) {
+        print("======_buildCounterStep:${model.step}==========");
         return GestureDetector(
           onTap: ()=>_showStepDialog(ctx),
           child: Text(
