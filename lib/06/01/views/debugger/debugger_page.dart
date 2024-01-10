@@ -16,7 +16,7 @@ class DebuggerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('功能测试'),
+        title: const Text('功能测试'),
         // backgroundColor: Colors.white,
       ),
       body: ListView(

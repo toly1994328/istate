@@ -14,17 +14,17 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('应用设置'),
+        title: const Text('应用设置'),
         // backgroundColor: Colors.white,
       ),
       body: ListView(
-        children: <Widget>[
-          const SizedBox(height: 15),
-          const ThemSettingItem(),
-          const SizedBox(height: 10),
-          const CounterResetItem(),
-          const Divider(),
-          const CounterStepSetItem(),
+        children: const <Widget>[
+          SizedBox(height: 15),
+          ThemSettingItem(),
+          SizedBox(height: 10),
+          CounterResetItem(),
+          Divider(),
+          CounterStepSetItem(),
         ],
       ),
     );

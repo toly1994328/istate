@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       themeMode: appThemeBloc.state,
       darkTheme: AppTheme.getDarkThemeData(),
       theme: AppTheme.getLightThemeData(),
-      home: AppNavigation(),
+      home: const AppNavigation(),
     );
   }
 }

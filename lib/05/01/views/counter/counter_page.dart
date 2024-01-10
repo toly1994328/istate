@@ -42,7 +42,7 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [_buildSwitch(context)],
-        title: Text('计数器'),
+        title: const Text('计数器'),
       ),
       body: Center(
         child: Column(

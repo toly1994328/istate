@@ -8,13 +8,13 @@ class DataModel{
 
   DataModel(){
     _largeData = '*'*100000;
-    print("====CountModel 创建===========");
+    debugPrint("====CountModel 创建===========");
   }
 
 
   void dispose(){
     _largeData = '';
-    print("====CountModel#dispose===========");
+    debugPrint("====CountModel#dispose===========");
   }
 }
 
@@ -50,7 +50,7 @@ class _ProviderTestItemState extends State<ProviderTestItem> {
     DataModel model = context.read<DataModel>();
     _data = model.largeData;
     setState(() {});
-    print(model.largeData);
+    debugPrint(model.largeData);
   }
 }
 

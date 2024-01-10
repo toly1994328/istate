@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       themeMode: appThemeManager.mode,
       darkTheme: AppTheme.getDarkThemeData(),
       theme: AppTheme.getLightThemeData(),
-      home: MyHomePage(
+      home: const MyHomePage(
         title: '计数器',
       ),
     );

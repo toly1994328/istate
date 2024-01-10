@@ -19,30 +19,30 @@ class UserPage extends StatelessWidget {
             height: 200,
             padding: const EdgeInsets.only(top: 56, right: 18, left: 18),
             color: color,
-            child: UserInfoPanel(),
+            child: const UserInfoPanel(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           ListTile(
             leading: Icon(Icons.settings,color: primaryColor,),
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => SettingsPage()),
+                MaterialPageRoute(builder: (_) => const SettingsPage()),
               );
             },
-            title: Text('系统设置'),
+            title: const Text('系统设置'),
             trailing: Icon(Icons.chevron_right, color: primaryColor),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: Icon(Icons.bug_report_sharp,color: primaryColor,),
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => DebuggerPage()),
+                MaterialPageRoute(builder: (_) => const DebuggerPage()),
               );
             },
-            title: Text('功能测试: provider'),
+            title: const Text('功能测试: provider'),
             trailing: Icon(Icons.chevron_right, color: primaryColor),
           ),
         ],

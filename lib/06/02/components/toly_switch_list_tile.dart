@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 // void setState(VoidCallback fn) { }
 // bool _isSelected = true;
 
-enum _SwitchListTileType { material, adaptive }
-
 /// A [ListTile] with a [Switch]. In other words, a switch with a label.
 ///
 /// {@youtube 560 315 https://www.youtube.com/watch?v=0igIjvtEWNU}
@@ -212,7 +210,6 @@ class TolySwitchListTile extends StatelessWidget {
 
   /// The color to use on the track when this switch is on.
   ///
-  /// Defaults to [ThemeData.toggleableActiveColor] with the opacity set at 50%.
   ///
   /// Ignored if created with [SwitchListTile.adaptive].
   final Color? activeTrackColor;

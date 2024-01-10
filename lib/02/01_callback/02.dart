@@ -19,7 +19,7 @@ void main() {
 
 class SmsSystem{
   void sendSms(String phone,String message){
-    print('向 ${phone} 发送： $message');
+    print('向 $phone 发送： $message');
   }
 }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../manager/app_theme_provider.dart';
-import '../settings/settings_page.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({
@@ -36,16 +35,6 @@ class _CounterPageState extends State<CounterPage> {
     );
   }
 
-  Widget _buildSettingButton() {
-    return IconButton(
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => SettingsPage()),
-        );
-      },
-      icon: Icon(Icons.settings),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +42,7 @@ class _CounterPageState extends State<CounterPage> {
       appBar: AppBar(
         actions: [_buildSwitch()],
         // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('计数器'),
+        title: const Text('计数器'),
       ),
       body: Center(
         child: Column(
@@ -64,7 +53,7 @@ class _CounterPageState extends State<CounterPage> {
               '下面是你点击按钮的次数:',
             ),
             Text(
-              '${_counter}',
+              '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],

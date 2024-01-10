@@ -11,7 +11,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('应用设置'),
+        title: const Text('应用设置'),
         // backgroundColor: Colors.white,
       ),
       body: ListView(

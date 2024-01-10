@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'istate',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -73,10 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
                 child: CupertinoTextField(
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
               controller: _useSize,
               placeholder: '输入磁盘使用量',
-              placeholderStyle: TextStyle(fontSize: 14, color: Colors.grey),
+              placeholderStyle: const TextStyle(fontSize: 14, color: Colors.grey),
             ))
           ],
         ),
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {});
                 }
               },
-              icon: Icon(Icons.not_started_outlined))
+              icon: const Icon(Icons.not_started_outlined))
         ],
       ),
       body: Center(
@@ -99,11 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               elevation: 1,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12.0),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 12.0),
                       child: Icon(
                         Icons.data_thresholding_outlined,
                         size: 42,
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           '磁盘 001',
                           style: TextStyle(
                             fontSize: 14,
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Text(
                           '用量: $_usage/$_total',
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                          style: const TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ],
                     ),
@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         smsMsg = '消息通知记录:\n';
                         setState(() {});
                       },
-                      child: Text('格式化'),
+                      child: const Text('格式化'),
                     ),
                     const SizedBox(
                       width: 8,
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Text(
                         '${((_usage / _total) * 100).toStringAsFixed(1)}%',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                        style: const TextStyle(fontSize: 10, color: Colors.grey),
                       )
                     ])
                   ],
@@ -155,29 +155,29 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Text(
-                  useMsg,
-                  style: TextStyle(fontSize: 12),
-                ),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8)),
+                child: Text(
+                  useMsg,
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: Text(
-                  smsMsg,
-                  style: TextStyle(fontSize: 12),
-                ),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8)),
+                child: Text(
+                  smsMsg,
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
             ),
           ],

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'manager/disk_manager.dart';
@@ -98,15 +97,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
                 child: CupertinoTextField(
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
               controller: _useSize,
               placeholder: '输入磁盘使用量',
-              placeholderStyle: TextStyle(fontSize: 14, color: Colors.grey),
+              placeholderStyle: const TextStyle(fontSize: 14, color: Colors.grey),
             ))
           ],
         ),
         actions: [
-          IconButton(onPressed: _useDisk, icon: Icon(Icons.not_started_outlined))
+          IconButton(onPressed: _useDisk, icon: const Icon(Icons.not_started_outlined))
         ],
       ),
       body: Column(

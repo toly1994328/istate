@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'app/theme.dart';
@@ -42,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: kAppThemeManager.mode,
       darkTheme: AppTheme.getDarkThemeData(),
       theme: AppTheme.getLightThemeData(),
-      home: MyHomePage(
+      home: const MyHomePage(
         title: '计数器',
       ),
     );

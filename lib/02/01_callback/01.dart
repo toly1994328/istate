@@ -1,5 +1,4 @@
 
-
 void main() {
   SmsSystem smsSystem = SmsSystem();
   DiskManager manager = DiskManager(1024,callback: (String msg){
@@ -15,7 +14,7 @@ void main() {
 
 class SmsSystem{
   void sendSms(String phone,String message){
-    print('向 ${phone} 发送： $message');
+    print('向 $phone 发送： $message');
   }
 }
 

@@ -19,7 +19,7 @@ class _AppNavigationState extends State<AppNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _activeIndex,
         onTap: _onSelectItem,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.plus_one), label: '计数器'),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: '我的'),
         ],
@@ -27,9 +27,9 @@ class _AppNavigationState extends State<AppNavigation> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _ctrl,
-        children: [
-          const CounterPage(),
-          const UserPage(),
+        children: const [
+          CounterPage(),
+          UserPage(),
         ],
       ),
     );

@@ -42,10 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return IconButton(
       onPressed: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => SettingsPage()),
+          MaterialPageRoute(builder: (_) => const SettingsPage()),
         );
       },
-      icon: Icon(Icons.settings),
+      icon: const Icon(Icons.settings),
     );
   }
 

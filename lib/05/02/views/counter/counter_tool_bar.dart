@@ -10,7 +10,7 @@ class CounterToolBar extends StatelessWidget {
   Widget _buildCounterStep() {
     return Consumer<AppCountModel>(
       builder: (ctx, AppCountModel model, __) {
-        print("======_buildCounterStep:${model.step}==========");
+        debugPrint("======_buildCounterStep:${model.step}==========");
         return GestureDetector(
           onTap: ()=>_showStepDialog(ctx),
           child: Text(
@@ -34,7 +34,7 @@ class CounterToolBar extends StatelessWidget {
     Color divColor = Theme.of(context).dividerTheme.color??Colors.black;
     double divSpace = Theme.of(context).dividerTheme.space ?? 1;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-    Color? bgColor =  isDark?Colors.black:Color(0xffF2F2F2);
+    Color? bgColor =  isDark?Colors.black:const Color(0xffF2F2F2);
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -48,7 +48,7 @@ class CounterToolBar extends StatelessWidget {
             const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: _buildCounterStep(),
           ),
-          SizedBox(height: 24, child: VerticalDivider(width: 1))
+          const SizedBox(height: 24, child: VerticalDivider(width: 1))
         ],
       ),
     );

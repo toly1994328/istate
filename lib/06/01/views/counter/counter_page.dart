@@ -35,8 +35,8 @@ class CounterPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         actions: [_buildSwitch(context)],
-        title: Text('计数器'),
-        bottom: PreferredSize(
+        title: const Text('计数器'),
+        bottom: const PreferredSize(
           preferredSize: Size.fromHeight(24),
           child: CounterToolBar(),
         ),

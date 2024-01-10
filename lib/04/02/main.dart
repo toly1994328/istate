@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       themeMode: appThemeManager.mode,
       darkTheme: AppTheme.getDarkThemeData(),
       theme: AppTheme.getLightThemeData(),
-      home: AppNavigation(),
+      home: const AppNavigation(),
     );
   }
 }
