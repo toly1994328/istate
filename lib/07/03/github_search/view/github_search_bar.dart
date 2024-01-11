@@ -32,9 +32,7 @@ class _GithubSearchBarState extends State<GithubSearchBar> {
     return TextField(
       controller: _textController,
       autocorrect: false,
-      onChanged: (text) {
-        _githubSearchBloc.add(TextChanged(text: text));
-      },
+      onChanged: (text) => _githubSearchBloc.add(InputChangeEvent(text: text)),
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         suffixIcon: GestureDetector(
@@ -49,6 +47,6 @@ class _GithubSearchBarState extends State<GithubSearchBar> {
 
   void _onClearTapped() {
     _textController.text = '';
-    _githubSearchBloc.add(const TextChanged(text: ''));
+    _githubSearchBloc.add(const InputChangeEvent(text: ''));
   }
 }

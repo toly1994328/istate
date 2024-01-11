@@ -5,23 +5,23 @@ class SearchResult {
 
   factory SearchResult.fromJson(dynamic json) {
     return SearchResult(
-      items: json['items'].map<SearchResultItem>(SearchResultItem.fromJson).toList(),
+      items: json['items'].map<RepositoryInfo>(RepositoryInfo.fromJson).toList(),
     );
   }
 
-  final List<SearchResultItem> items;
+  final List<RepositoryInfo> items;
 }
 
-class SearchResultItem {
-  const SearchResultItem({
+class RepositoryInfo {
+  const RepositoryInfo({
     required this.fullName,
     required this.htmlUrl,
     required this.stargazersCount,
     required this.owner,
   });
 
-  factory SearchResultItem.fromJson(dynamic json) {
-    return SearchResultItem(
+  factory RepositoryInfo.fromJson(dynamic json) {
+    return RepositoryInfo(
       fullName: json['full_name'],
       htmlUrl: json['html_url'],
       stargazersCount: json['stargazers_count'],

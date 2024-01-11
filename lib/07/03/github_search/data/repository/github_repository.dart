@@ -8,7 +8,7 @@ class GithubRepository {
 
   static const String kSearchUrl = 'https://api.github.com/search/repositories?q=';
 
-  final _cache = <String, SearchResult>{};
+  final Map<String, SearchResult> _cache = {};
   final http.Client _client = http.Client();
 
   Future<SearchResult> search(String term) async {

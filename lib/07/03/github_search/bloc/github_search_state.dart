@@ -5,7 +5,6 @@ import '../data/models/models.dart';
 
 sealed class GithubSearchState extends Equatable {
   const GithubSearchState();
-
   @override
   List<Object> get props => [];
 }
@@ -17,13 +16,10 @@ final class SearchStateLoading extends GithubSearchState {}
 final class SearchStateSuccess extends GithubSearchState {
   const SearchStateSuccess(this.items);
 
-  final List<SearchResultItem> items;
+  final List<RepositoryInfo> items;
 
   @override
   List<Object> get props => [items];
-
-  @override
-  String toString() => 'SearchStateSuccess { items: ${items.length} }';
 }
 
 final class SearchStateError extends GithubSearchState {

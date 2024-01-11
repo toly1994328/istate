@@ -31,7 +31,7 @@ class GithubSearchBody extends StatelessWidget {
 class SearchResultsView extends StatelessWidget {
   const SearchResultsView({super.key, required this.items});
 
-  final List<SearchResultItem> items;
+  final List<RepositoryInfo> items;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class SearchResultsView extends StatelessWidget {
 class _SearchResultItem extends StatelessWidget {
   const _SearchResultItem({required this.item});
 
-  final SearchResultItem item;
+  final RepositoryInfo item;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _SearchResultItem extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         direction: Axis.vertical,
         children: [
-          Text('star',style: TextStyle(color: Colors.grey),),
+          const Text('star',style: TextStyle(color: Colors.grey),),
           Text(item.stargazersCount.toString(),style: TextStyle(color: themeColor),),
         ],
       ),
