@@ -52,7 +52,7 @@ class CounterPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context.read<AppCounterBloc>().increment,
+        onPressed: ()=>context.read<AppCounterBloc>().increment(),
         tooltip: '增加',
         child: const Icon(Icons.add),
       ),

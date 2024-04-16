@@ -1,45 +1,46 @@
 import 'package:flutter/material.dart';
-import 'manager/app_counter_model.dart';
-import 'package:provider/provider.dart';
-import 'app/theme.dart';
-
-import 'manager/app_theme_provider.dart';
-import 'views/navigation/app_navigation.dart';
-
+import 'view/home_page.dart';
 void main() {
-  runApp(const ManagerWrapper(child: MyApp()));
+  runApp(const MyApp());
 }
 
-class ManagerWrapper extends StatelessWidget {
-  final Widget child;
-
-  const ManagerWrapper({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AppThemeManager()),
-        ChangeNotifierProvider(create: (_) => AppCountModel()),
-      ],
-      child: const MyApp(),
-    );
-  }
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
-    AppThemeManager appThemeManager = context.watch<AppThemeManager>();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'istate',
-      themeMode: appThemeManager.mode,
-      darkTheme: AppTheme.getDarkThemeData(),
-      theme: AppTheme.getLightThemeData(),
-      home: const AppNavigation(),
+    return  MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'istate',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: "黑体",
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: ZoomPageTransitionsBuilder(
+              allowEnterRouteSnapshotting: false,
+            ),
+          },
+        ),
+
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: const Color(0xfff2f2f2),
+        ),
+        appBarTheme: const AppBarTheme(
+            scrolledUnderElevation: 0,
+            centerTitle: true,
+            backgroundColor: const Color(0xfff2f2f2),
+            titleTextStyle:
+            TextStyle(fontFamily: "黑体", fontSize: 16, color: Colors.black)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+
+        home: const MyHomePage(title: '计数器'),
     );
   }
 }
+
+
