@@ -10,33 +10,6 @@ final SecretListRepository secretListRepository = SecretListRepository();
 class SecretListRepository {
   List<Secret> _serverDataList = [];
 
-  Future<PagedResult<Secret>> search(
-    String arg, {
-    int page = 1,
-    int pageSize = 15,
-  }) async {
-    /// 模拟网络异步请求
-    /// 下面的代码可以不较真，仅通过内存的方式模拟搜索结果
-    await Future.delayed(const Duration(seconds: 1));
-    RegExp regExp = RegExp(arg, caseSensitive: false);
-    List<Secret> result = _serverDataList.where((e) => e.title.contains(regExp)).toList();
-    int start = (page - 1) * pageSize;
-    int end = start + pageSize;
-    int length = result.length;
-    List<Secret> data = [];
-    if (end > result.length + pageSize) {
-      data = [];
-    } else if (end > length) {
-      data = result.sublist(start);
-    } else {
-      data = result.sublist(start, end);
-    }
-    return PagedResult(
-      data: data,
-      pagination: Pagination(page: page, pageSize: pageSize, total: length),
-    );
-  }
-
   /// 分页获取秘钥列表
   /// [page] 页码
   /// [pageSize] 每页数据数量
@@ -51,8 +24,7 @@ class SecretListRepository {
     if (_serverDataList.isEmpty) {
       await Future.delayed(const Duration(seconds: 1));
       String data = await rootBundle.loadString("assets/data/secret.json");
-      _serverDataList =
-          (json.decode(data) as List).map(Secret.fromMap).toList();
+      _serverDataList = (json.decode(data) as List).map(Secret.fromMap).toList();
     }
     int start = (page - 1) * pageSize;
     int end = start + pageSize;
@@ -98,7 +70,6 @@ class SecretListRepository {
     /// 模拟网络异步请求
     /// 下面的代码可以不较真，仅通过内存的方式更新
     await Future.delayed(const Duration(seconds: 1));
-
     /// 模拟更新后的数据，可通过接口返回
     Secret newSecret = Secret(
       title: payload.title ?? secret.title,
@@ -111,11 +82,4 @@ class SecretListRepository {
     return newSecret;
   }
 
-  Future<Secret> delete(Secret secret) async {
-    /// 模拟网络异步请求
-    /// 下面的代码可以不较真，仅通过内存的方式删除
-    await Future.delayed(const Duration(seconds: 1));
-    _serverDataList.removeWhere((e) => e.title == secret.title);
-    return secret;
-  }
 }

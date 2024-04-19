@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../debugger/flutter_bloc/flutter_bloc_debugger_page.dart';
-import '../debugger/provider/provider_debugger_page.dart';
+import '../debugger/debugger_page.dart';
 
 import '../settings/settings_page.dart';
 import 'user_info_panel.dart';
@@ -35,28 +34,15 @@ class UserPage extends StatelessWidget {
             title: const Text('系统设置'),
             trailing: Icon(Icons.chevron_right, color: primaryColor),
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          ListTile(
-            leading: Icon(Icons.bug_report_sharp,color: primaryColor,),
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const ProviderDebuggerPage()),
-              );
-            },
-            title: const Text('功能测试: provider'),
-            trailing: Icon(Icons.chevron_right, color: primaryColor),
-          ),
           const Divider(),
           ListTile(
             leading: Icon(Icons.bug_report_sharp,color: primaryColor,),
             onTap: (){
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const FlutterBlocDebuggerPage()),
+                MaterialPageRoute(builder: (_) => const DebuggerPage()),
               );
             },
-            title: const Text('功能测试: flutter_bloc'),
+            title: const Text('功能测试'),
             trailing: Icon(Icons.chevron_right, color: primaryColor),
           ),
         ],

@@ -52,21 +52,6 @@ class SecretListOp extends _$SecretListOp {
     }
   }
 
-  void editSecret(EditOp op, UpdateSecretPayload payload) async {
-    Secret active = op.secret;
-    state = const AsyncValue.loading();
-    try {
-      Secret secret = await secretListRepository.update(active, payload);
-      // throw "网络请求异常，请稍后重试!";
-      // refresh();
-      state = AsyncValue.data(SecretListOpState(op: op, data: (op.secret,secret)));
-      _setNoneOp();
-    } catch (err, stack) {
-      _lastErrorOp = op;
-      state = AsyncValue.error(err, stack);
-    }
-  }
-
   void refresh() async {
     state = const AsyncValue.loading();
     try {
@@ -83,18 +68,6 @@ class SecretListOp extends _$SecretListOp {
     }
   }
 
-  void delete(DeleteOp op) async {
-    state = const AsyncValue.loading();
-    try {
-      Secret secret = await secretListRepository.delete(op.secret);
-      // throw "网络请求异常，删除失败!";
-      state = AsyncValue.data(SecretListOpState(op: op, data: secret));
-      _setNoneOp();
-    } catch (err, stack) {
-      _lastErrorOp = op;
-      state = AsyncValue.error(err, stack);
-    }
-  }
 
   void loadMore() async {
     Pagination? pagination = ref.read(secretListProvider).value?.pagination;

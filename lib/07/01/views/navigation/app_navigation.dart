@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../counter/view/counter_page.dart';
+import '../counter/counter_page.dart';
 import '../user/user_page.dart';
 
 class AppNavigation extends StatefulWidget {
@@ -16,7 +16,6 @@ class _AppNavigationState extends State<AppNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _activeIndex,

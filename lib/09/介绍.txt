@@ -1,3 +1,3 @@
-01: flutter_riverpod : 秘钥生成 - 列表展示与添加功能
-02: flutter_riverpod : 秘钥生成 - 推送更新功能
-
+01: 添加计算器数据持久化功能
+02: 使用 Bloc 业务逻辑模块
+03: 添加 github_search 功能

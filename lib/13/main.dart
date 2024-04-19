@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'modules/starter/views/splash_page.dart';
 
-import 'modules/starter/river/app_start.dart';
-import 'modules/starter/river/state.dart';
-import 'modules/starter/views/error_page.dart';
+
 import 'view/secret_list/secrets_page.dart';
 
 void main() {
@@ -47,41 +44,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AppStartListener(
-        child: SplashPage(),
-      ),
+      home: const SecretsPage(),
     );
-  }
-}
-
-
-class AppStartListener extends ConsumerWidget {
-  final Widget child;
-  const AppStartListener({super.key,required this.child});
-
-  @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    ref.listen(appStartProvider, (p,n)=>_listenAppStateChange(ref,p,n));
-    return child;
-  }
-
-  void _listenAppStateChange(WidgetRef ref, AppStatus? prev, AppStatus state) {
-    if (state is AppLoadDone) {
-      /// 初始化任务已完成
-      /// 可处理一些首页数据的预加载
-    }
-
-    if (state is AppStartSuccess) {
-      Navigator.of(ref.context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const SecretsPage()),
-      );
-    }
-    if (state is AppStartFailed) {
-      Navigator.of(ref.context).pushReplacement(
-        MaterialPageRoute(
-            builder: (_) => AppStartErrorPage(message: state.error)),
-      );
-    }
   }
 }
 

@@ -39,12 +39,6 @@ class AppTheme {
     ColorScheme scheme = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
     return ThemeData(
       // useMaterial3: false,
-      bottomSheetTheme: BottomSheetThemeData(
-        shape:  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8)
-    ),
-      ),
-
       scaffoldBackgroundColor: const Color(0xffF3F4F6),
       appBarTheme: AppBarTheme(
           backgroundColor: scheme.inversePrimary,

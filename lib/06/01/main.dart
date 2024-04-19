@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'manager/app_counter_bloc.dart';
-import 'manager/app_theme_bloc.dart';
+import 'package:provider/provider.dart';
 import 'app/theme.dart';
+import 'views/home_page.dart';
 
-import 'views/navigation/app_navigation.dart';
+import 'manager/app_theme_provider.dart';
 
 void main() {
   runApp(const ManagerWrapper(child: MyApp()));
@@ -17,11 +16,8 @@ class ManagerWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => AppCounterBloc()),
-        BlocProvider(create: (_) => AppThemeBloc()),
-      ],
+    return ChangeNotifierProvider(
+      create: (_) => AppThemeManager(),
       child: const MyApp(),
     );
   }
@@ -32,14 +28,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppThemeBloc appThemeBloc = context.watch<AppThemeBloc>();
+    AppThemeManager appThemeManager = context.watch<AppThemeManager>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'istate',
-      themeMode: appThemeBloc.state,
+      themeMode: appThemeManager.mode,
       darkTheme: AppTheme.getDarkThemeData(),
       theme: AppTheme.getLightThemeData(),
-      home: const AppNavigation(),
+      home: const MyHomePage(
+        title: '计数器',
+      ),
     );
   }
 }

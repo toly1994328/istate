@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'
-    hide ChangeNotifierProvider;
-import 'package:provider/provider.dart';
-import 'state/counter_page.dart';
-import 'bloc/bloc_counter_page.dart';
-import 'bloc/counter_bloc.dart';
-import 'get/get_counter_page.dart';
-import 'provider/counter_model.dart';
-import 'provider/provider_counter_page.dart';
-import 'riverpod/riverpod_counter_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'modules/starter/views/splash_page.dart';
 
-void main() => runApp(MyApp());
+import 'modules/starter/river/app_start.dart';
+import 'modules/starter/river/state.dart';
+import 'modules/starter/views/error_page.dart';
+import 'view/secret_list/secrets_page.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -31,97 +31,57 @@ class MyApp extends StatelessWidget {
             ),
           },
         ),
+        chipTheme: ChipThemeData(
+          side: BorderSide.none,
+          backgroundColor: Color(0xfff3f4f6),
+          labelStyle: TextStyle(fontSize: 12,color: Colors.grey),
+          labelPadding: EdgeInsets.symmetric(horizontal: 12),
+
+          padding: EdgeInsets.zero
+        ),
         appBarTheme: const AppBarTheme(
-            centerTitle: true,
             backgroundColor: const Color(0xfff2f2f2),
-            titleTextStyle:
-                TextStyle(fontFamily: "黑体", fontSize: 16, color: Colors.black)),
+            titleTextStyle: TextStyle(
+                fontFamily: "黑体",
+                fontSize: 16, color: Colors.black)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AppStartListener(
+        child: SplashPage(),
+      ),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+
+class AppStartListener extends ConsumerWidget {
+  final Widget child;
+  const AppStartListener({super.key,required this.child});
 
   @override
-  Widget build(BuildContext context) {
-    List<Map<String, String>> descMap = [
-      {
-        'title': 'State',
-        'slogan': 'Flutter 内部状态管理',
-      },
-      {
-        'title': 'Provider',
-        'slogan': '包装 InheritedWidget 使其更易于使用和重用',
-      },
-      {
-        'title': 'Bloc',
-        'slogan': '对 BLoC 设计模式的 Flutter 框架实现',
-      },
-      {
-        'title': 'Riverpod',
-        'slogan': '响应式缓存和数据绑定框架，让异步代码更简单',
-      },
-      {
-        'title': 'Get',
-        'slogan': '无上下文依赖，注入依赖关系的轻量管理状态',
-      }
-    ];
-
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("状态数据生命测试"),
-        ),
-        body: ListView.builder(
-          itemBuilder: (ctx, index) => ListTile(
-            onTap: () => onTap(ctx, descMap[index]['title']!),
-            title: Text(descMap[index]['title']!),
-            subtitle: Text(
-              descMap[index]['slogan']!,
-              style: TextStyle(fontSize: 12),
-            ),
-            trailing: Icon(Icons.navigate_next),
-          ),
-          itemCount: descMap.length,
-        ));
+  Widget build(BuildContext context,WidgetRef ref) {
+    ref.listen(appStartProvider, (p,n)=>_listenAppStateChange(ref,p,n));
+    return child;
   }
 
-  void onTap(BuildContext context, String title) {
-    Widget page = const SizedBox();
-
-    if (title == 'Bloc') {
-      page = BlocProvider<CounterBloc>(
-        create: (BuildContext context) {
-          return CounterBloc();
-        },
-        child: const BlocCounterPage(),
-      );
-    }
-    if (title == 'State') {
-      page = CounterPage();
+  void _listenAppStateChange(WidgetRef ref, AppStatus? prev, AppStatus state) {
+    if (state is AppLoadDone) {
+      /// 初始化任务已完成
+      /// 可处理一些首页数据的预加载
     }
 
-    if (title == 'Provider') {
-      page = ChangeNotifierProvider<CounterModel>(
-        create: (BuildContext context) {
-          return CounterModel();
-        },
-        child: const ProviderCounterPage(),
+    if (state is AppStartSuccess) {
+      Navigator.of(ref.context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const SecretsPage()),
       );
     }
-
-    if (title == 'Riverpod') {
-      page = const ProviderScope(
-        child: RiverpodCounterPage(),
+    if (state is AppStartFailed) {
+      Navigator.of(ref.context).pushReplacement(
+        MaterialPageRoute(
+            builder: (_) => AppStartErrorPage(message: state.error)),
       );
     }
-    if (title == 'Get') {
-      page = const GetCounterPage();
-    }
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
   }
 }
+

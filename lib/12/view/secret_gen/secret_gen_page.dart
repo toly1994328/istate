@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../river/river.dart';
 import '../../data/data.dart';
 
-import '../secret_list/dialog/edit_secret_page.dart';
 import 'secret_fetch_button.dart';
 import 'secret_gen_button.dart';
 import 'secret_push_button.dart';
@@ -31,16 +30,20 @@ class SecretGenPage extends ConsumerWidget {
             ],
           ),
         ),
-        title: const GenBarTitle(),
-        actions: [
-          IconButton(
-            onPressed: () => _toEditPage(ref, context),
-            icon: const Icon(Icons.edit, size: 20),
-          ),
-          const SizedBox(
-            width: 6,
-          )
-        ],
+        title: Column(
+          children: [
+            Text(secret.title),
+            const SizedBox(height: 2),
+            const GenTitleText(),
+          ],
+        ),
+        // actions: const [
+        //   SecretGenButton(),
+        //   SecretFetchButton(),
+        //   SizedBox(
+        //     width: 8,
+        //   )
+        // ],
       ),
       body: const Center(
         child: Column(
@@ -50,36 +53,22 @@ class SecretGenPage extends ConsumerWidget {
       ),
     );
   }
-
-  void _toEditPage(WidgetRef ref, BuildContext context) {
-    Secret? secret = ref.watch(secretListProvider).value?.activeSecret;
-    if (secret != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => EditSecretPage(op: EditOp(secret))),
-      );
-    }
-  }
 }
 
-class GenBarTitle extends ConsumerWidget {
-  const GenBarTitle({super.key});
+class GenTitleText extends ConsumerWidget {
+  const GenTitleText({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const TextStyle style = TextStyle(fontSize: 10, color: Colors.grey);
     return ref.watch(secretListProvider).when(
         data: (value) {
-          return Column(
-            children: [
-              Text("${value.activeSecret?.title}"),
-              Text(
-                "最近更新: ${value.activeSecret?.updateStr}",
-                style: style,
-              ),
-            ],
+          print(value.activeSecret);
+          return Text(
+            "最近更新: ${value.activeSecret?.updateStr}",
+            style: const TextStyle(fontSize: 10, color: Colors.grey),
           );
         },
-        error: (_, __) => const SizedBox(),
-        loading: () => const CupertinoActivityIndicator(radius: 8));
+        error: (_, __) => SizedBox(),
+        loading: () => const CupertinoActivityIndicator(radius: 8,));
   }
 }

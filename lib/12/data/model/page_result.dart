@@ -21,8 +21,6 @@ class Pagination extends Equatable {
     required this.pageSize,
   });
 
-
-
   @override
   List<Object?> get props => [total, pageSize, page];
 }

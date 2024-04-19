@@ -23,10 +23,6 @@ class Secret extends Equatable {
     required this.updateAt,
   });
 
-  UpdateSecretPayload get update{
-    return UpdateSecretPayload(secret: secret,title: title);
-  }
-
   @override
   List<Object?> get props => [title, secret, createAt, updateAt];
 
@@ -39,18 +35,18 @@ class Secret extends Equatable {
   String get secretStr => secret?.hide() ?? '暂未上传秘钥';
 
   factory Secret.fromMap(dynamic map) => Secret(
-        title: map['title'],
-        secret: map['secret'],
-        createAt: map['create_at'],
-        updateAt: map['update_at'],
-      );
+    title: map['title'],
+    secret: map['secret'],
+    createAt: map['create_at'],
+    updateAt: map['update_at'],
+  );
 
   Map<String, dynamic> toJson() => {
-        "title": title,
-        "secret": secret,
-        "create_at": createAt,
-        "update_at": updateAt,
-      };
+    "title": title,
+    "secret": secret,
+    "create_at": createAt,
+    "update_at": updateAt,
+  };
 }
 
 extension StringExt on String {

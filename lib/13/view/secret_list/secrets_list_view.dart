@@ -33,18 +33,6 @@ class _SecretsListViewState extends ConsumerState<SecretsListView> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.state.secrets.isEmpty){
-      return Center(child: Wrap(
-        direction: Axis.vertical,
-        spacing: 8,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          Icon(Icons.hourglass_empty,size: 36,color: Colors.grey),
-          Text("没有任何数据",style: TextStyle(color: Colors.grey),),
-        ],
-      ));
-    }
-
     ref.listen(secretListOpProvider, (p, n) => _listenOpChange(context, p, n));
     return SlidableAutoCloseBehavior(
       child: SmartRefresher(
@@ -127,6 +115,25 @@ class _SecretsListViewState extends ConsumerState<SecretsListView> {
       ),
     );
   }
+
+  // void _showDeleteDialog(BuildContext context,Secret record) async {
+  //   // Color color = Theme.of(context).backgroundColor;
+  //   // await showDialog(
+  //   //     context: context,
+  //   //     builder: (_) => Dialog(
+  //   //       backgroundColor: color,
+  //   //       child: PhoneDeleteRecord(
+  //   //         model: record,
+  //   //       ),
+  //   //     ));
+  // }
+  //
+  // void _showEditDialog(BuildContext context,Secret record) {
+  //   // Slidable.of(context)?.close();
+  //   // Navigator.of(context).push(
+  //   //   MaterialPageRoute(builder: (_) => RecordEditPage(record: record)),
+  //   // );
+  // }
 
   bool handleError(
     AsyncValue<SecretListOpState?>? previous,

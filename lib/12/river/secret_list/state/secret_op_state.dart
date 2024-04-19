@@ -9,11 +9,6 @@ class JumpOp  extends ListOpType {
   const JumpOp(this.secret);
 }
 
-/// 删除操作
-class DeleteOp  extends ListOpType {
-  final Secret secret;
-  const DeleteOp(this.secret);
-}
 
 class NoneOp extends ListOpType {
   const NoneOp();
@@ -36,10 +31,10 @@ class AddOp extends ListOpType {
   AddOp(this.title);
 }
 
-/// 修改秘钥领域
+/// 推送秘钥
 class EditOp extends ListOpType {
-  final Secret secret;
-  EditOp(this.secret);
+  final String name;
+  EditOp(this.name);
 }
 
 /// 推送秘钥

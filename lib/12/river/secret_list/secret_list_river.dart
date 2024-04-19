@@ -12,10 +12,7 @@ class SecretList extends _$SecretList {
   Future<SecretsState> build() async {
     ref.listen(secretListOpProvider, _listenOpChange);
     var ret = await secretListRepository.fetch();
-    return SecretsState(
-      secrets: ret.data,
-      pagination: ret.pagination,
-    );
+    return SecretsState(secrets: ret.data, pagination: ret.pagination,);
   }
 
   void active(Secret secret) {
@@ -42,13 +39,6 @@ class SecretList extends _$SecretList {
       }
     }
 
-    if (previous?.value?.op is NoneOp && next.value?.op is EditOp) {
-      Object? ret = next.value?.data;
-      if (ret is (Secret,Secret)) {
-        whenEditSecret(ret);
-      }
-    }
-
     if (previous?.value?.op is NoneOp && next.value?.op is RefreshOp) {
       Object? data = next.value?.data;
       if (data is PagedResult<Secret>) {
@@ -60,13 +50,6 @@ class SecretList extends _$SecretList {
       Object? data = next.value?.data;
       if (data is PagedResult<Secret>) {
         whenLoadMoreDone(data);
-      }
-    }
-
-    if (previous?.value?.op is NoneOp && next.value?.op is DeleteOp) {
-      Object? data = next.value?.data;
-      if (data is Secret) {
-        whenDeleteDone(data);
       }
     }
   }
@@ -86,15 +69,6 @@ class SecretList extends _$SecretList {
     prev.secrets.removeWhere((e) => e.title == secret.title);
     SecretsState next =
         prev.copyWith(secrets: [secret, ...prev.secrets], activeSecret: secret);
-    state = AsyncValue.data(next);
-  }
-
-  void whenEditSecret((Secret,Secret) secret) {
-    if (state.value == null) return;
-    SecretsState prev = state.value!;
-    prev.secrets.removeWhere((e) => e.title == secret.$1.title);
-    SecretsState next =
-    prev.copyWith(secrets: [secret.$2, ...prev.secrets]);
     state = AsyncValue.data(next);
   }
 
@@ -120,7 +94,9 @@ class SecretList extends _$SecretList {
     SecretsState prev = state.value!;
     prev.secrets.removeWhere((e) => e.title == secret.title);
     state = AsyncValue.data(
-      prev.copyWith(secrets: [...prev.secrets]),
+      prev.copyWith(
+        secrets: [...prev.secrets],
+      ),
     );
   }
 }

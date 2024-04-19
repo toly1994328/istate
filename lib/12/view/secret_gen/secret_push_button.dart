@@ -54,7 +54,7 @@ class SecretPushButton extends ConsumerWidget {
 
   Widget _buildError(String error) {
     return ErrorIconWrapper(
-      enable: SecretListOp.lastErrorOp is PushOp,
+      enable: true,
       error: error,
       child: const Icon(Icons.call_made, color: Color(0xff59a869)),
     );

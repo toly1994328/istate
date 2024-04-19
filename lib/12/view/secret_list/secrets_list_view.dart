@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:istate/utils/toast.dart';
 import 'package:refresh/refresh.dart';
 
 import '../../river/river.dart';
 import '../../data/data.dart';
-import 'slider_item_wrapper.dart';
 
 typedef SecretOpCallBack = void Function(BuildContext, ListOpType);
 
@@ -34,30 +32,28 @@ class _SecretsListViewState extends ConsumerState<SecretsListView> {
   @override
   Widget build(BuildContext context) {
     ref.listen(secretListOpProvider, (p, n) => _listenOpChange(context, p, n));
-    return SlidableAutoCloseBehavior(
-      child: SmartRefresher(
-        footer: const ClassicFooter(
-          loadingText: "数据加载中...",
-          idleText: "上拉加载更多",
-          failedText: "数据加载失败",
-          loadingIcon: CupertinoActivityIndicator(),
-          noDataText: "没有更多数据了",
-        ),
-        header: const ClassicHeader(
-            failedText: "刷新失败",
-            refreshingText: "数据加载中...",
-            releaseText: "释放刷新",
-            idleText: "下拉加载",
-            completeText: "刷新成功",
-            refreshingIcon: CupertinoActivityIndicator()),
-        controller: _ctrl,
-        enablePullUp: true,
-        onRefresh: _onRefresh,
-        onLoading: _loadNextPage,
-        child: ListView.builder(
-          itemCount: widget.state.secrets.length,
-          itemBuilder: (_, i) => _buildItem(context, widget.state.secrets[i]),
-        ),
+    return SmartRefresher(
+      footer: const ClassicFooter(
+        loadingText: "数据加载中...",
+        idleText: "上拉加载更多",
+        failedText: "数据加载失败",
+        loadingIcon: CupertinoActivityIndicator(),
+        noDataText: "没有更多数据了",
+      ),
+      header: const ClassicHeader(
+          failedText: "刷新失败",
+          refreshingText: "数据加载中...",
+          releaseText: "释放刷新",
+          idleText: "下拉加载",
+          completeText: "刷新成功",
+          refreshingIcon: CupertinoActivityIndicator()),
+      controller: _ctrl,
+      enablePullUp: true,
+      onRefresh: _onRefresh,
+      onLoading: _loadNextPage,
+      child: ListView.builder(
+        itemCount: widget.state.secrets.length,
+        itemBuilder: (_, i) => _buildItem(context, widget.state.secrets[i]),
       ),
     );
   }
@@ -96,22 +92,17 @@ class _SecretsListViewState extends ConsumerState<SecretsListView> {
 
   Widget _buildItem(BuildContext context, Secret secret) {
     const TextStyle tailStyle = TextStyle(color: Colors.grey);
-    return SliderItemWrapper(
-      uniqueId: secret.title,
-      onDelete: (ctx) => widget.onOp(ctx, DeleteOp(secret)),
-      onEdit: (ctx) => widget.onOp(ctx, EditOp(secret)),
-      child: ListTile(
-        dense: true,
-        onTap: () => widget.onOp(context, JumpOp(secret)),
-        title: Text(secret.title),
-        subtitle: Text(secret.secretStr),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('创建:${secret.createStr}', style: tailStyle),
-            Text('更新:${secret.updateStr}', style: tailStyle)
-          ],
-        ),
+    return ListTile(
+      dense: true,
+      onTap: () => widget.onOp(context, JumpOp(secret)),
+      title: Text(secret.title),
+      subtitle: Text(secret.secretStr),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('创建:${secret.createStr}', style: tailStyle),
+          Text('更新:${secret.updateStr}', style: tailStyle)
+        ],
       ),
     );
   }
@@ -141,5 +132,4 @@ class _SecretsListViewState extends ConsumerState<SecretsListView> {
     ref.read(secretListOpProvider.notifier).refresh();
   }
 
-  void onEdit(BuildContext context) {}
 }

@@ -6,7 +6,7 @@ part of 'secret_list_river.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$secretListHash() => r'2a335c2b88344bf710283934e4652cf104eba52b';
+String _$secretListHash() => r'61c2db8404ac9ce1a8e0150941cb4e4a327df442';
 
 /// See also [SecretList].
 @ProviderFor(SecretList)

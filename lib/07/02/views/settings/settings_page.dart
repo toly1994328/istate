@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../counter/bloc/counter_event.dart';
-import '../../counter/bloc/counter_bloc.dart';
-import '../../counter/bloc/counter_state.dart';
-import '../../app/bloc/app_theme_bloc.dart';
-import '../../counter/view/counter_step_dialog.dart';
+import '../counter/counter_step_dialog.dart';
+import '../../manager/app_counter_model.dart';
+import 'package:provider/provider.dart';
 import 'theme_model_setting_page.dart';
+
+import '../../manager/app_theme_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -37,7 +36,7 @@ class ThemSettingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppThemeBloc appThemeBloc = context.watch<AppThemeBloc>();
+    AppThemeManager appThemeManager = context.watch<AppThemeManager>();
 
     Color primaryColor = Theme.of(context).primaryColor;
     const TextStyle subStyle = TextStyle(fontSize: 12, color: Colors.grey);
@@ -45,7 +44,7 @@ class ThemSettingItem extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.style, color: primaryColor),
       title: const Text('深色模式', style: titleStyle),
-      subtitle: Text(appThemeBloc.title, style: subStyle),
+      subtitle: Text(appThemeManager.title, style: subStyle),
       trailing: Icon(Icons.chevron_right, color: primaryColor),
       onTap: () => _toThemeModeSettingPage(context),
     );
@@ -69,13 +68,11 @@ class CounterResetItem extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.refresh, color: primaryColor),
       title: const Text('重置计数器', style: titleStyle),
-      subtitle: BlocBuilder<AppCounterBloc, CounterState>(
-        buildWhen: (p, n) => p.counter != n.counter,
-        builder: (_, state) {
-          return Text('当前数值:${state.counter}', style: subStyle);
-        },
+      subtitle: Consumer<AppCountModel>(
+        builder: (_, AppCountModel model, __) =>
+            Text('当前数值:${model.counter}', style: subStyle),
       ),
-      onTap: ()=>context.read<AppCounterBloc>().add(const ResetEvent()),
+      onTap: context.read<AppCountModel>().reset,
     );
   }
 }
@@ -86,11 +83,15 @@ class CounterStepSetItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
+    const TextStyle subStyle = TextStyle(fontSize: 12, color: Colors.grey);
     const TextStyle titleStyle = TextStyle(fontSize: 16);
     return ListTile(
       leading: Icon(Icons.settings_suggest_rounded, color: primaryColor),
       title: const Text('计数器步长', style: titleStyle),
-      subtitle: const CounterStepShow(),
+      subtitle: Consumer<AppCountModel>(
+        builder: (_, AppCountModel model, __) =>
+            Text('每次点击计数器 +${model.step}', style: subStyle),
+      ),
       onTap: () {
         showModalBottomSheet(
           context: context,
@@ -98,16 +99,5 @@ class CounterStepSetItem extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class CounterStepShow extends StatelessWidget {
-  const CounterStepShow({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const TextStyle subStyle = TextStyle(fontSize: 12, color: Colors.grey);
-    int step = context.select<AppCounterBloc, int>((model) => model.state.step);
-    return Text('步长 +$step', style: subStyle);
   }
 }
